@@ -5,8 +5,8 @@ name: build & deploy
 steps:
 - name: build
   commands:
-  - docker build --pull --rm -t bootstrap:latest . 
+  - docker build --pull --rm -t flaskdronebootstrap:latest . 
 - name: deploy
   commands:
-  - docker stop bootstrap || true && docker rm bootstrap || true
-  - docker run -p 5000:5000 --name bootstrap  bootstrap:latest .
+  - docker stop flaskdronebootstrap || true && docker rm flaskdronebootstrap || true
+  - docker run -p 5000:5000 --name flaskdronebootstrap -d --network="host"  --network=flaskdronebootstrap:latest .
