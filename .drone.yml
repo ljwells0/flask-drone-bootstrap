@@ -1,0 +1,12 @@
+kind: pipeline
+type: exec
+name: build & deploy
+
+steps:
+- name: build
+  commands:
+  - docker build --pull --rm -t bootstrap:latest . 
+- name: deploy
+  commands:
+  - docker stop bootstrap || true && docker rm bootstrap || true
+  - docker run -p 5000:5000 --name bootstrap  bootstrap:latest .
